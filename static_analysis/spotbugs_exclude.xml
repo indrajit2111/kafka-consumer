@@ -1,0 +1,86 @@
+<FindBugsFilter>
+    <Match>
+        <Package name="~.*\.*dto"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*model"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*model*"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*model*"/>
+        <Bug pattern="URF_UNREAD_FIELD"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*model*"/>
+        <Bug pattern="IL_INFINITE_RECURSIVE_LOOP"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*dto"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*util"/>
+        <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*util"/>
+        <Bug pattern="EI_EXPOSE_REP"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*util"/>
+        <Bug pattern="CT_CONSTRUCTOR_THROW"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*util"/>
+        <Bug pattern="DLS_DEAD_STORE_OF_CLASS_LITERAL"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*util"/>
+        <Bug pattern="DM_BOXED_PRIMITIVE_FOR_PARSING"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*util"/>
+        <Bug pattern="NP_NULL_PARAM_DEREF"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*util"/>
+        <Bug pattern="OBL_UNSATISFIED_OBLIGATION"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*util"/>
+        <Bug pattern="OS_OPEN_STREAM"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*util"/>
+        <Bug pattern="RV_RETURN_VALUE_IGNORED"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*util"/>
+        <Bug pattern="ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*util"/>
+        <Bug pattern="DM_DEFAULT_ENCODING"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*helper"/>
+        <Bug pattern="REC_CATCH_EXCEPTION"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*impl"/>
+        <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*validation"/>
+        <Bug pattern="DLS_DEAD_LOCAL_STORE"/>
+    </Match>
+    <Match>
+        <Package name="~.*\.*fallback"/>
+        <Bug pattern="EI_EXPOSE_REP2"/>
+    </Match>
+</FindBugsFilter>
