@@ -1,6 +1,7 @@
 package com.kafka.consumer.config;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.kafka.consumer.util.ConsumerConstant;
@@ -22,6 +23,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.kafka.support.serializer.JsonSerializer;
 
 @EnableKafka
 @Configuration
@@ -34,26 +36,26 @@ public class KafkaConfiguration {
     private String kafkaPort;
 
     @Bean
-    ConsumerFactory<String, String> kafkaConsumerFactory() {
+    ConsumerFactory<String, List<String>> kafkaConsumerFactory() {
 
         final Map<String, Object> config = new HashMap<>();
         config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, kafkaUrl + ":" + kafkaPort);
         config.put(ConsumerConfig.GROUP_ID_CONFIG, ConsumerConstant.GROUP_ID_CONFIG);
         config.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
-        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        config.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
         config.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, "6000");
         config.put(JsonDeserializer.TRUSTED_PACKAGES, "*");
 
         final ErrorHandlingDeserializer<String> headerErrorHandlingDeserializer = new ErrorHandlingDeserializer<>(
                 new StringDeserializer());
-        final ErrorHandlingDeserializer<String> errorHandlingDeserializer = new ErrorHandlingDeserializer<>(
-                new StringDeserializer());
+        final ErrorHandlingDeserializer<List<String>> errorHandlingDeserializer = new ErrorHandlingDeserializer<>(
+                new JsonDeserializer());
         return new DefaultKafkaConsumerFactory<>(config, headerErrorHandlingDeserializer, errorHandlingDeserializer);
     }
 
     @Bean
-    ConcurrentKafkaListenerContainerFactory<String, String> consumerKafkaListenerFactory() {
-        final ConcurrentKafkaListenerContainerFactory<String, String> factory =
+    ConcurrentKafkaListenerContainerFactory<String, List<String>> consumerKafkaListenerFactory() {
+        final ConcurrentKafkaListenerContainerFactory<String, List<String>> factory =
                 new ConcurrentKafkaListenerContainerFactory<>();
         factory.setConsumerFactory(kafkaConsumerFactory());
         factory.setCommonErrorHandler(new CommonLoggingErrorHandler());
