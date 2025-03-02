@@ -4,8 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
+import org.springframework.batch.core.configuration.annotation.JobScope;
 import org.springframework.batch.core.configuration.annotation.StepScope;
 import org.springframework.batch.core.listener.StepExecutionListenerSupport;
 import org.springframework.batch.core.partition.support.StepExecutionAggregator;
@@ -26,10 +28,14 @@ import java.util.List;
 
 @Service
 @Setter
-public class StringReader implements ItemReader<String>, StepExecutionListener {
+@Slf4j
+@JobScope
+public class StringReader implements ItemReader<List<String>>, StepExecutionListener {
 
     private List<String> items;
     private Iterator<String> iterator;
+    @Value("#{jobParameters['itemsListJson']}")
+    private String itemsListJson;
 
 
     @Autowired
@@ -45,8 +51,11 @@ public class StringReader implements ItemReader<String>, StepExecutionListener {
 
 
     @Override
-    public String read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
-        return "test";
+    public List<String> read() throws Exception, UnexpectedInputException, ParseException, NonTransientResourceException {
+        log.info("itemsListJson inside processor: {}", itemsListJson);
+        List<String> myList = Arrays.asList(itemsListJson.split(","));
+        log.info("myList: {}", myList);
+        return myList;
     }
 
 }
